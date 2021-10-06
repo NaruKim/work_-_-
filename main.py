@@ -1,6 +1,8 @@
+# 나루터 MK4
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
 import time
 
 URL = "https://www.rankey.com/rank/rank_site_all.php#"
@@ -8,11 +10,14 @@ ID = "jness1012"
 PW = "jness1012"
 TXT = "C:\이름.text"
 TXT2 = "C:\링크.text"
+pages=189
 
+# 나루터 MK5
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+caps = DesiredCapabilities().CHROME
+caps["pageLoadStrategy"] = "eager"
+driver = webdriver.Chrome(desired_capabilities=caps, executable_path='C:\selenium\chromedriver')
 
-pages=148
-
-driver = webdriver.Chrome('C:\selenium\chromedriver')
 driver.get(URL)
 
 beginning_login = '/html/body/div[1]/table/tbody/tr/td[4]/table/tbody/tr[1]/td[1]'
@@ -32,19 +37,22 @@ pw_input.send_keys("jness1012")
 login_button=driver.find_element_by_xpath(login)
 login_button.click()
 
+time.sleep(1.5)
+
 driver.find_element_by_xpath('//*[@id="rank_to"]').send_keys('00')
 driver.find_element_by_xpath('/html/body/table[1]/tbody/tr/td[2]/table/tbody/tr/td/table[3]/tbody/tr[2]/td[2]/table/tbody/tr/td[2]/a/img').click()
 
-time.sleep(1)
+time.sleep(1.5)
 
 next = driver.find_element_by_xpath('//*[@id="oPage"]/tbody/tr/td[3]/input')
 next.click()
 next.send_keys(Keys.CONTROL+'a')
 next.send_keys(Keys.BACKSPACE)
-next.send_keys(pages,"\n")
+next.send_keys(pages)
+time.sleep(1)
 next.send_keys("\n")
 
-time.sleep(3)
+time.sleep(1)
 
 file1=open("C:\이름.text", mode='w')
 file1.write(driver.find_element_by_xpath('//*[@id="oTable"]/tbody/tr[3]/td[2]/a').text)
@@ -116,13 +124,13 @@ driver.find_element_by_xpath('//*[@id="oTable"]/tbody/tr[22]/td[2]/a').send_keys
 time.sleep(3)
 
 file2=open("C:\링크.text", mode='w')
-
 i=-1
 while (i>-21):
-    time.sleep(2)
+    driver.implicitly_wait(1)
     driver.switch_to.window(driver.window_handles[i])
     file2.write(driver.current_url)
     file2.write('\n')
     i=i-1
+file2.close()
 
 driver.quit()
