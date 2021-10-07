@@ -2,18 +2,16 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
+import os
 
 URL = "https://www.rankey.com/rank/rank_site_all.php#"
 ID = "jness1012"
 PW = "jness1012"
-TXT = "C:\이름.text"
-TXT2 = "C:\링크.text"
-pages=189
+pages = 294
+print(pages)
 
-# 나루터 MK5
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 caps = DesiredCapabilities().CHROME
 caps["pageLoadStrategy"] = "eager"
 driver = webdriver.Chrome(desired_capabilities=caps, executable_path='C:\selenium\chromedriver')
@@ -120,7 +118,6 @@ driver.find_element_by_xpath('//*[@id="oTable"]/tbody/tr[20]/td[2]/a').send_keys
 driver.find_element_by_xpath('//*[@id="oTable"]/tbody/tr[21]/td[2]/a').send_keys(Keys.CONTROL+"\n")
 driver.find_element_by_xpath('//*[@id="oTable"]/tbody/tr[22]/td[2]/a').send_keys(Keys.CONTROL+"\n")
 
-
 time.sleep(3)
 
 file2=open("C:\링크.text", mode='w')
@@ -132,5 +129,7 @@ while (i>-21):
     file2.write('\n')
     i=i-1
 file2.close()
-
 driver.quit()
+
+os.startfile("C:\이름.text")
+os.startfile("C:\링크.text")
